@@ -4,30 +4,38 @@ class myPromise{
         if (typeof fn !== 'function'){
             throw '参数应该是func';
         }
-        this.fn = fn;
-        try {fn()} catch (err) {
-            this.err = err;
-            this.catch(_rejected(err));
+        this.fulfilled = undefined;
+        this.rejected = undefined;
+        try {
+            fn(this._resolve,this._reject);
+        } catch (err) {
+            console.log(err)
+            this.catch(err);
         }
     }
-
-    _resolve(value) {
-        setTimeout(this.fn.arguments[0](value))
+    static isFunc(fn){
+        return typeof fn === 'function'
     }
-    _reject(value) {
-        setTimeout(this.fn.arguments[1](value))
+    static _resolve(value){
+        if (!this.fulfilled || !this.isFunc(this.fulfilled)){
+            return function(value){}
+        } else {
+            return this.fulfilled(value)
+        }
     }
-
+    static _reject(value){
+        if (!this.rejected || !this.isFunc(this.rejected)){
+            return function(value){}
+        } else {
+            return this.rejected(value)
+        }
+    }
     then(fulfilled, rejected){
-        setTimeout(()=>{
-            this._resolve(this.value);
-            this._reject(this.err);
-        })
+        this.fulfilled = fulfilled;
+        this.rejected = rejected;
     }
     catch(rejected){
-        setTimeout(()=>{
-            rejected(this.err);
-        })
+        this.rejected = rejected;
     }
 }
 module.exports = myPromise;

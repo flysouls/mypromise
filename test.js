@@ -1,9 +1,10 @@
 const myPromise = require('./promise.js');
+// const myPromise = require('./promises.js');
 // console.log(myPromise);
-var xx = new myPromise(function (res,rej) {
-    setTimeout(() => { console.log('1111111');res('2s') }, 2000)
+var xx = new myPromise(function (resolve, reject) {
+    setTimeout(() => { console.log('异步任务2秒后输出');resolve('2s') }, 2000)
 }).then(function (value) {
-    console.log(value) 
+    console.log('then',value) 
 }, function (err) {
-    console.log(err)
+    console.log('err',err)
 })
