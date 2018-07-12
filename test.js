@@ -1,8 +1,7 @@
+const {EventBus, myPromise} = require('./tools');
+
 if(false){
-    
-    const myPromise = require('./promise.js');
-    // const myPromise = require('./promises.js');
-    // console.log(myPromise);
+    // const myPromise = require('./promise.js');
     var xx = new myPromise(function (resolve, reject) {
         setTimeout(() => { 
             console.log('异步任务2秒后输出');
@@ -14,7 +13,8 @@ if(false){
     }).catch(err=>{console.log("0.0",err)})
 
 }
-const EventBus = require('./eventBus.js');
+
+// const EventBus = require('./eventBus.js');
 const ev = new EventBus();
 ev.on('haha',function(a){console.log('hhaah')});
 ev.on('haha',function(a,b,c){console.log('hahha123',a,b,c)});

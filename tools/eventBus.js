@@ -5,10 +5,12 @@ class EventBus {
     is(str,type){
         if(typeof str !== type){
             console.error(`eventType should be a ${type}`);
+            return false
         }
+        return true
     }
     on(type,fn){
-        this.is(type,'string');
+        if(!this.is(type,'string')) return;
         if(type in this._event){
             this._event[type].push(fn)
         } else {
@@ -16,7 +18,7 @@ class EventBus {
         }
     }
     emit(type,...opt){
-        this.is(type,'string');
+        if(!this.is(type,'string')) return;
         if(type in this._event && this._event[type]!==null){
             if(Array.isArray(this._event[type])){
                 let i = this._event[type].length;
@@ -33,7 +35,7 @@ class EventBus {
         }
     }
     off(type){
-        this.is(type,'string');
+        if(!this.is(type,'string')) return;
         if(type in this._event){
             this._event[type] = null
         }
