@@ -24,6 +24,9 @@ class myPromise{
         }
     }
     then(fulfilled, rejected){
+        if(this.status !== PENDING){
+            return;
+        }
         this.fulfilled.push(fulfilled);
         this.rejected.push(rejected);
         return this;
@@ -32,6 +35,7 @@ class myPromise{
         this.then(undefined, rejected);
     }
     _resolve(value){
+        this.status = FULFILLED;
         if (!this.fulfilled || !isFunc(this.fulfilled)){
             return function(value){}
         } else {
@@ -39,6 +43,7 @@ class myPromise{
         }
     }
     _reject(value){
+        this.status = REJECTED;
         if (!this.rejected || !isFunc(this.rejected)){
             return function(value){}
         } else {
