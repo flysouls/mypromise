@@ -10,6 +10,11 @@ class EventBus {
         return true
     }
     on(type,fn){
+        if(Array.isArray(type)){
+            type.forEach(item=>{
+                this.on(item,fn)
+            })
+        }
         if(!this.is(type,'string')) return;
         if(type in this._event){
             this._event[type].push(fn)
@@ -34,10 +39,30 @@ class EventBus {
             console.error(`there is no type of ${type} event was bind`);
         }
     }
-    off(type){
+    off(type, fn){
+        if (!arguments.length) {
+          this._event = {};
+        }
+        if(Array.isArray(type)){
+            type.forEach(item=>{
+                this.off(item, fn);
+            })
+        }
         if(!this.is(type,'string')) return;
-        if(type in this._event){
+        let cbs = this._event[type];
+        if(!cbs) {
+            console.error(`there is no type of ${type} event was bind`);
+            return;
+        }
+        if(!fn){
             this._event[type] = null
+        }
+        let i = cbs.length;
+        while(i--){
+            if(cbs[i] === fn){
+                cbs.splice(i, 1);
+                break
+            }
         }
     }
 }

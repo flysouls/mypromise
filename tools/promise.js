@@ -16,6 +16,7 @@ class myPromise{
         }
         this.fulfilledList = [];
         this.rejectedList = [];
+        this.status = PENDING;
         try {
             fn(this._resolve.bind(this),this._reject.bind(this));
         } catch (err) {
