@@ -1,41 +1,48 @@
+/**
+ * 申明状态常量
+ */
+const PENDING = 'pending';
+const FULFILLED = 'fulfilled';
+const REJECTED = 'rejected';
+/**
+ * 判断参数是否为func
+ */
+const isFunc = fn => typeof fn === 'function';
 
 class myPromise{
     constructor(fn){
         if (typeof fn !== 'function'){
             throw '参数应该是func';
         }
-        this.fulfilled = undefined;
-        this.rejected = undefined;
+        this.fulfilledList = [];
+        this.rejectedList = [];
         try {
-            fn(this._resolve,this._reject);
+            fn(this._resolve.bind(this),this._reject.bind(this));
         } catch (err) {
-            console.log(err)
-            this.catch(err);
+            this._reject(err);
         }
     }
-    static isFunc(fn){
-        return typeof fn === 'function'
+    then(fulfilled, rejected){
+        this.fulfilled.push(fulfilled);
+        this.rejected.push(rejected);
+        return this;
     }
-    static _resolve(value){
-        if (!this.fulfilled || !this.isFunc(this.fulfilled)){
+    catch(rejected){
+        this.then(undefined, rejected);
+    }
+    _resolve(value){
+        if (!this.fulfilled || !isFunc(this.fulfilled)){
             return function(value){}
         } else {
             return this.fulfilled(value)
         }
     }
-    static _reject(value){
-        if (!this.rejected || !this.isFunc(this.rejected)){
+    _reject(value){
+        if (!this.rejected || !isFunc(this.rejected)){
             return function(value){}
         } else {
             return this.rejected(value)
         }
-    }
-    then(fulfilled, rejected){
-        this.fulfilled = fulfilled;
-        this.rejected = rejected;
-    }
-    catch(rejected){
-        this.rejected = rejected;
     }
 }
 module.exports = myPromise;
