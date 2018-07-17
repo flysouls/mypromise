@@ -42,6 +42,8 @@ if(TEST.eventBus){
 if(TEST.sort){
     const mySort = new Sort();
     let arr = [5,4,7,8,9,6,3,1,4,5,7,9,6,3,1,4];
-    console.log(mySort.quickSort(arr));
-    console.log(mySort.mpSort(arr));
+    console.log('元数组', arr);
+    console.log('快速排序', mySort.quickSort(arr));
+    console.log('冒泡排序', mySort.mpSort(arr));
+    console.log('插入排序', mySort.insertSort(arr));
 }

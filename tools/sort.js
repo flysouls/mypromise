@@ -72,10 +72,47 @@ class Sort {
             }
         }
         sort(arr);
+        return arr;
     }
     /**
-     * 
+     * 插入排序
+     * @param {Array} arr 待排序数组
      */
+    insertSort(arr){
+        if (!Array.isArray(arr)) {
+            return
+        }
+        let sort = arr => {
+            let len = arr.length, ol = 1;
+            for(let i = 1; i<=arr.length; i++){
+                let temp = arr[i];
+                for(let j = 0; j<ol; j++){
+                    if(ol = len)return;
+                    if (arr[j]>temp){
+                        let pow = arr[j], low = j-1;
+                        arr[j] = arr[low];
+                        arr[low] = pow;
+                    }else{
+                        ol++;
+                    }
+                }
+            }
+        }
+        sort(arr);
+        return arr;
+    }
+    /**
+     * 选择排序
+     */
+    choiceSort(){
+        //
+    }
+    /**
+     * 桶排序
+     */
+    choiceSort(){
+        //
+    }
 }
 
 module.exports = Sort;
