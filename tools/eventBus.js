@@ -21,6 +21,7 @@ class EventBus {
         } else {
             this._event[type] = [fn]
         }
+        return this;
     }
     emit(type,...opt){
         if(!this.is(type,'string')) return;
@@ -38,6 +39,7 @@ class EventBus {
         } else {
             console.error(`there is no type of ${type} event was bind`);
         }
+        return this
     }
     off(type, fn){
         if (!arguments.length) {
@@ -64,6 +66,7 @@ class EventBus {
                 break
             }
         }
+        return this
     }
 }
 module.exports = EventBus;

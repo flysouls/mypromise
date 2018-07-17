@@ -27,8 +27,8 @@ class myPromise{
         if(this.status !== PENDING){
             return;
         }
-        this.fulfilled.push(fulfilled);
-        this.rejected.push(rejected);
+        this.fulfilledList.push(fulfilled);
+        this.rejectedList.push(rejected);
         return this;
     }
     catch(rejected){
@@ -39,7 +39,12 @@ class myPromise{
         if (!this.fulfilled || !isFunc(this.fulfilled)){
             return function(value){}
         } else {
-            return this.fulfilled(value)
+            // return this.fulfilled(value)
+            setTimeout(()=>{
+                this.fulfilledList.forEach(item=>{
+                    item(value)
+                });this.fulfilledList = [];
+            },0)
         }
     }
     _reject(value){
@@ -47,7 +52,12 @@ class myPromise{
         if (!this.rejected || !isFunc(this.rejected)){
             return function(value){}
         } else {
-            return this.rejected(value)
+            // return this.rejected(value)
+            setTimeout(()=>{
+                this.rejectedList.forEach(item=>{
+                    item(value)
+                });this.rejectedList = [];
+            },0)
         }
     }
 }
