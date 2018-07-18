@@ -39,7 +39,6 @@ class myPromise{
         if (!this.fulfilled || !isFunc(this.fulfilled)){
             return function(value){}
         } else {
-            // return this.fulfilled(value)
             setTimeout(()=>{
                 this.fulfilledList.forEach(item=>{
                     item(value)
@@ -52,7 +51,6 @@ class myPromise{
         if (!this.rejected || !isFunc(this.rejected)){
             return function(value){}
         } else {
-            // return this.rejected(value)
             setTimeout(()=>{
                 this.rejectedList.forEach(item=>{
                     item(value)
