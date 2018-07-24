@@ -1,9 +1,10 @@
-const {EventBus, myPromise, Sort} = require('./tools');
+const {EventBus, myPromise, Sort, Utils} = require('./tools');
 
 const TEST = {
-    myPromise:false,
-    eventBus:false,
-    sort:true,
+    myPromise: false,
+    eventBus: false,
+    sort: false,
+    Utils: true,
 }
 
 /**
@@ -46,4 +47,9 @@ if(TEST.sort){
     console.log('快速排序', mySort.quickSort(arr));
     console.log('冒泡排序', mySort.mpSort(arr));
     console.log('插入排序', mySort.insertSort(arr));
+}
+
+if (TEST.Utils){
+    const myutils = new Utils();
+    console.log(myutils.strTemplate('我是{name}，我来自{city}', {name:'张无忌',city:'光明顶'}));
 }

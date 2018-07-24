@@ -8,7 +8,9 @@ const REJECTED = 'rejected';
  * 判断参数是否为func
  */
 const isFunc = fn => typeof fn === 'function';
-
+/**
+ * 简易promise（有点问题）
+ */
 class myPromise{
     constructor(fn){
         if (typeof fn !== 'function'){

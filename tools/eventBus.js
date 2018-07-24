@@ -2,6 +2,11 @@ class EventBus {
     constructor(){
         this._event = {};
     }
+    /**
+     * 类型判断
+     * @param {any} str 待判断对象
+     * @param {String} type 类型
+     */
     is(str,type){
         if(typeof str !== type){
             console.error(`eventType should be a ${type}`);
@@ -9,6 +14,11 @@ class EventBus {
         }
         return true
     }
+    /**
+     * 自定义事件绑定
+     * @param {String} type 绑定事件类型
+     * @param {Function} fn 事件
+     */
     on(type,fn){
         if(Array.isArray(type)){
             type.forEach(item=>{
@@ -23,6 +33,11 @@ class EventBus {
         }
         return this;
     }
+    /**
+     * 自定义事件触发
+     * @param {string} type 自定义事件类型
+     * @param {...Any} opt 参数
+     */
     emit(type,...opt){
         if(!this.is(type,'string')) return;
         if(type in this._event && this._event[type]!==null){
@@ -41,6 +56,11 @@ class EventBus {
         }
         return this
     }
+    /**
+     * 自定义事件解绑
+     * @param {String} type 事件类型
+     * @param {Function} fn 待解绑参数
+     */
     off(type, fn){
         if (!arguments.length) {
           this._event = {};

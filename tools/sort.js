@@ -1,7 +1,7 @@
 class Sort {
     /**
      * 交换数组元素
-     * @param {Array} arr 待交换数据
+     * @param {Array.<number>} arr 待交换数据
      * @param {number} left 下标1
      * @param {number} right 下标2
      */
@@ -10,14 +10,14 @@ class Sort {
     }
     /**
      * 类型转换
-     * @param {any} val 
+     * @param {string|number} val 
      */
     N(val) {
         return Number(val)
     }
     /**
      * 快速排序
-     * @param {Array} arr 待排序数组
+     * @param {Array.<Number>} arr 待排序数组
      */
     quickSort(arr) {
         if (!Array.isArray(arr)) {
@@ -49,7 +49,7 @@ class Sort {
     }
     /**
      * 冒泡排序
-     * @param {Array} arr
+     * @param {Array.<Number>} arr 待排序数组
      */
     mpSort(arr){
         if (!Array.isArray(arr)) {
@@ -76,7 +76,7 @@ class Sort {
     }
     /**
      * 插入排序
-     * @param {Array} arr 待排序数组
+     * @param {Array.<Number>} arr 待排序数组
      */
     insertSort(arr){
         if (!Array.isArray(arr)) {
