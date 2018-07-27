@@ -86,5 +86,20 @@ class utils {
         let n = Math.pow(10, Math.max(al,bl));
         return (a*n+b*n)/n;
     }
+    /**
+     * 数字转货币格式
+     * @param {Number|String} num 待转金额
+     */
+    n2amount(num){
+        return {
+            'number.toLocaleString':Number(num).toLocaleString(),
+            // \B 非单词边界   \b 单词边界
+            '使用于正数（int）': String(num).replace(/\B(?=(\d{3})+\b)/g, ','),
+            // 不太懂
+            '使用于正数（int & float）': String(num).replace(/(?=\B(?:\d{3})+\b)(\d{3}(?:\.\d+$)?)/g, ',$1'),
+            
+            '使用于正数（float）': String(num).replace(/(\d{1,3})(?=(?:\d{3})+\.)/g, '$1,')
+        }
+    }
 }
 module.exports = utils;

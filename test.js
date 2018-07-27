@@ -52,4 +52,5 @@ if(TEST.sort){
 if (TEST.Utils){
     const myutils = new Utils();
     console.log(myutils.strTemplate('我是{name}，我来自{city}', {name:'张无忌',city:'光明顶'}));
+    console.log(myutils.n2amount(456465446504.1234));
 }
