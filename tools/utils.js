@@ -101,5 +101,45 @@ class utils {
             '使用于正数（float）': String(num).replace(/(\d{1,3})(?=(?:\d{3})+\.)/g, '$1,')
         }
     }
+    /**
+     * 函数防抖（一定时间内多次触发。仅执行最后一次）
+     * @param {Function} fn 防抖函数
+     * @param {Number} delay 时间段
+     */
+    debounce(fn, delay){
+        let timer = null;
+        return function(){
+            let that = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function(){
+                fn.apply(that, args);
+            }, delay)
+        }
+    }
+    /**
+     * 函数节流
+     * @param {Function} fn 节流函数
+     * @param {Number} delay 节流时间
+     */
+    throttle(fn, delay){
+        var timer = null,
+            delay = delay || 250,
+            last;
+        return function(){
+            let that = this, 
+                args = arguments,
+                now = +new Date();
+            if (last && now < last + delay){
+                clearTimeout(timer);
+                timer = setTimeout(function(){
+                    last = now;
+                    fn.apply(that, args);
+                }, delay)
+            } else {
+                last = now;
+                fn.apply(that, args);
+            }
+        }
+    }
 }
 module.exports = utils;

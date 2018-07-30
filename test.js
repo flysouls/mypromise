@@ -51,6 +51,12 @@ if(TEST.sort){
 
 if (TEST.Utils){
     const myutils = new Utils();
-    console.log(myutils.strTemplate('我是{name}，我来自{city}', {name:'张无忌',city:'光明顶'}));
-    console.log(myutils.n2amount(456465446504.1234));
+    // console.log(myutils.strTemplate('我是{name}，我来自{city}', {name:'张无忌',city:'光明顶'}));
+    // console.log(myutils.n2amount(456465446504.1234));
+    let defn = myutils.debounce(function(i){console.log('100w次、防抖、延迟250ms',i)}, 250);
+    let thfn = myutils.throttle(function(i){console.log('100w次、节流、延迟200ms',i)}, 200);
+    for(let i = 1; i <= 1000000; i++){
+        defn(i);
+        thfn(i);
+    }
 }
