@@ -51,18 +51,13 @@ class Sort {
      */
     mpSort(arr){
         if (!Array.isArray(arr)) return;
+        //index 记录循环次数
+        let index = 0;
         const sort = arr => {
             let isSort = false;
             //优化版..加入right记录无序数组边界，再往右是有序的，减少排序次数
             let right = arr.length-1;
-            let index = 0;
             for(let i = 0; i < right; i++){
-                // for(let j = i; j < arr.length; j++){
-                //     if(arr[i]>arr[j]){
-                //         this.swap(arr, i, j);
-                //         isSort = true;
-                //     }
-                // }
                 index++;
                 if (arr[i] > arr[i+1]) {
                     this.swap(arr, i, i+1);
@@ -70,16 +65,17 @@ class Sort {
                 }
                 if (i === right - 1){
                     if (isSort){
-                        i = 0;
-                        right--;
+                        i = -1;
+                        right -= 1;
+                        isSort = false;
                     } else {
-                        return arr;
+                        return ;
                     }
                 }
             }
-            console.log(index);
         }
         sort(arr);
+        console.log("循环次数 %d",index);
         return arr;
     }
     // error安抚安抚啊安抚浪费al..................................................................
@@ -89,7 +85,7 @@ class Sort {
      */
     jwjSort(arr){
         if (!Array.isArray(arr)) return;
-        let isSort = false;
+        let isSort = false, len = arr.length;
         let index = 0;
         //同冒泡排序 加入左右边界以优化减少循环次数
         let sort2right = (arr, left, right) => {
@@ -103,7 +99,7 @@ class Sort {
                     this.swap(arr, i, i+1);
                 }
             };
-            sort2left(arr);
+            sort2left(arr, 0, right-1);
         }
         let sort2left = (arr, left, right) => {
             index++;
@@ -116,12 +112,12 @@ class Sort {
                     this.swap(arr, i-1, i);
                 }
             };
-            sort2right(arr);
+            sort2right(arr, left+1, right);
         }
         while(!isSort){
-            sort2right(arr);
+            sort2right(arr, 0, len);
         }
-        console.log(index);
+        console.log("循环次数:%d",index);
         return arr;
     }
     /**
@@ -131,18 +127,11 @@ class Sort {
     insertSort(arr){
         if (!Array.isArray(arr)) return;
         let sort = arr => {
-            //ol 为默认有序的长度
-            let len = arr.length, ol = 1;
+            let len = arr.length;
             for(let i = 1; i < len; i++){
-                let temp = arr[i];
-                for(let j = 0; j<ol; j++){
-                    if(ol = len)return;
-                    if (arr[j]>temp){
-                        let pow = arr[j], low = j-1;
-                        arr[j] = arr[low];
-                        arr[low] = pow;
-                    }else{
-                        ol++;
+                for(let j = i; j > 0; j--){
+                    if (arr[j] < arr[j-1]){
+                        this.swap(arr, j, j-1);
                     }
                 }
             }

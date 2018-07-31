@@ -42,12 +42,15 @@ if(TEST.eventBus){
 
 if(TEST.sort){
     const mySort = new Sort();
+    let arr2json = arr => JSON.stringify(arr);
+    let json2arr = str => JSON.parse(str);
     let arr = [5,4,7,8,9,6,3,1,4,2,5,7,9,6,3,1,4];
-    console.log('元数组', arr);
-    // console.log('快速排序', mySort.quickSort(arr));
-    console.log('冒泡排序', mySort.mpSort(arr));
-    // console.log('插入排序', mySort.insertSort(arr));
-    // console.log('鸡尾酒排序', mySort.jwjSort(arr));
+    let json = arr2json(arr);json2arr(json)
+    console.log('快速排序', mySort.quickSort(json2arr(json)));
+    console.log('冒泡排序', mySort.mpSort(json2arr(json)));
+    console.log('插入排序', mySort.insertSort(json2arr(json)));
+    console.log('鸡尾酒排序', mySort.jwjSort(json2arr(json)));
+    console.log('原数组为', json2arr(json));
 }
 
 if (TEST.Utils){
