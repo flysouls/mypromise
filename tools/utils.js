@@ -141,5 +141,73 @@ class utils {
             }
         }
     }
+
+    /**
+     * service.js
+     */
+    // var http = require('http');
+    // var urllib = require('url');
+
+    // var port = 3000;
+    // var data = {'data':'world'};
+
+    // http.createServer(function(req,res){
+    //     var params = urllib.parse(req.url,true);
+    //     if(params.query.callback){
+    //         console.log(params.query.callback);
+    //         //jsonp
+    //         let {callback, ...other} = params.query;
+    //         let others = {...data, ...other};
+    //         var str = params.query.callback + '(' + JSON.stringify(others) + ')';
+    //         res.end(str);
+    //     } else {
+    //         res.end();
+    //     }
+        
+    // }).listen(port,function(){
+    //     console.log('jsonp server is on');
+    // });
+    //jsonp 需要浏览器环境 
+    jsonp(){
+        if (!opt || !opt.url) return '参数无效';
+        let url = opt.url,
+        callback = opt.callback || null,
+        data = opt.data || {};
+        //生成id
+        let getId = ()=>{
+            let id = Math.random()*1000+1000;
+            return id.toFixed();
+        },
+        //生成回调函数名
+        fn = `jsonp${getId()}`,
+        param = [];
+        script = document.createElement('script'),
+        //清理script以及回调函数的方法
+        clear = () => {
+            delete(window[fn])
+            script.remove();
+        }
+        //参数添加回调函数名
+        data['callback'] = fn;
+        //处理参数
+        for(let key in data) {
+            param.push(`${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+        }
+        //处理url
+        url = url.indexOf('?') > 0 ? url + '&' : url + '?';
+        url += param.join('&');
+        //回调
+        window[fn] = (res) => {
+            callback && callback(res)
+            clear();
+        }
+        script.onerror = () => {
+            callback && callback({err:'error'})
+            clear();
+        }
+        script.src = url;
+        script.type = 'text/javascript';
+        document.body.appendChild(script);
+    }
 }
 module.exports = utils;
